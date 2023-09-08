@@ -4,7 +4,7 @@
     {
       "label": "Run Docker Compose for LaTeX GroupReport",
       "type": "shell",
-      "command": "./report/latexUtils/GroupReport-windows.bat",
+      "command": "./report/latexUtils/GroupReport-mac.sh",
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -14,7 +14,7 @@
     {
       "label": "Run Docker Compose for LaTeX Reflections",
       "type": "shell",
-      "command": "./report/latexUtils/Reflections-windows.bat",
+      "command": "./report/latexUtils/Reflections-mac.sh",
       "problemMatcher": [],
       "group": {
         "kind": "build",
