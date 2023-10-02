@@ -30,6 +30,9 @@ jobs:
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
 
+      - name: Test DNS resolution
+        run: nslookup $SSH_HOSTNAME
+
       - name: Execute commands over SSH
         run: |
           ssh -vvv -i ~/.ssh/id_rsa $SSH_USERNAME@$SSH_HOSTNAME "echo 'Hello World'"
