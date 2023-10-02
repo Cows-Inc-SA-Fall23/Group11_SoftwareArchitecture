@@ -32,4 +32,4 @@ jobs:
 
       - name: Execute commands over SSH
         run: |
-          ssh -i ~/.ssh/id_rsa $SSH_USERNAME@$SSH_HOSTNAME "echo 'Hello World'"
+          ssh -vvv -i ~/.ssh/id_rsa $SSH_USERNAME@$SSH_HOSTNAME "echo 'Hello World'"
