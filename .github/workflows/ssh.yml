@@ -18,6 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: print env
+        run: |
+          echo $SSH_PRIVATE_KEY
+          echo $SSH_USERNAME
+          echo $SSH_HOSTNAME
+
       - name: Execute commands over SSH
         run: |
           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} "echo 'Hello World'"
