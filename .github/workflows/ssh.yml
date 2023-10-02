@@ -31,7 +31,7 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
 
       - name: Test DNS resolution
-        run: nslookup $SSH_HOSTNAME
+        run: nslookup bds-g11-n0.uvm.sdu.dk
 
       - name: Execute commands over SSH
         run: |
