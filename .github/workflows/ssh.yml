@@ -20,4 +20,4 @@ jobs:
 
       - name: Execute commands over SSH
         run: |
-          ssh -i SSH_PRIVATE_KEY SSH_USERNAME@SSH_HOSTNAME "echo 'Hello World'"
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} "echo 'Hello World'"
