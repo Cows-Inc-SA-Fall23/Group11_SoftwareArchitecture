@@ -24,6 +24,12 @@ jobs:
           echo $SSH_USERNAME
           echo $SSH_HOSTNAME
 
+      - name: Use SSH keys
+        run: |
+          echo "Using SSH key for user $SSH_USERNAME at host $SSH_HOSTNAME"
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
       - name: Execute commands over SSH
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} "echo 'Hello World'"
+          ssh -i id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} "echo 'Hello World'"
