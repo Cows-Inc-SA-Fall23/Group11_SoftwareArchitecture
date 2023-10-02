@@ -5,13 +5,19 @@ on:
     branches:
       - DockerDemoIntergration
 
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+  SSH_HOSTNAME: ${{ secrets.SSH_HOSTNAME }}
+
 jobs:
   ssh:
     runs-on: ubuntu-latest
+    environment: SSH_PRIVATE_KEY
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Execute commands over SSH
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} "your-commands-here"
+          ssh -i SSH_PRIVATE_KEY SSH_USERNAME@SSH_HOSTNAME "echo 'Hello World'"
