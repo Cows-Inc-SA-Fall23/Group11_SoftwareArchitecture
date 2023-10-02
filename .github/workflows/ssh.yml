@@ -13,7 +13,6 @@ env:
 jobs:
   ssh:
     runs-on: ubuntu-latest
-    environment: SSH_PRIVATE_KEY
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,12 +23,13 @@ jobs:
           echo $SSH_USERNAME
           echo $SSH_HOSTNAME
 
-      - name: Use SSH keys
+      - name: Setup SSH directory and keys
         run: |
-          echo "Using SSH key for user $SSH_USERNAME at host $SSH_HOSTNAME"
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+            mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
 
       - name: Execute commands over SSH
         run: |
-          ssh -i id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} "echo 'Hello World'"
+          ssh -i ~/.ssh/id_rsa $SSH_USERNAME@$SSH_HOSTNAME "echo 'Hello World'"
