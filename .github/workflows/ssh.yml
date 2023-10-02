@@ -42,6 +42,9 @@ jobs:
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
 
-      - name: Execute commands and Local Forward over SSH
+      - name: Test DNS resolution
+        run: nslookup bds-g11-n0.uvm.sdu.dk
+
+      - name: Execute commands over SSH
         run: |
-              ssh -i ~/.ssh/id_rsa -L 16443:127.0.0.1:16443 $SSH_USERNAME@$SSH_HOSTNAME "echo 'Hello World'"
+          ssh -vvv -i ~/.ssh/id_rsa micpe18@bds-g11-n0.uvm.sdu.dk "echo 'Hello World'"
