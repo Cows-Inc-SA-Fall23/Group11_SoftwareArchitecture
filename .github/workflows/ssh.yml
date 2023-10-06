@@ -14,4 +14,4 @@ jobs:
 
       - name: Execute commands and Local Forward over SSH
         run: |
-          ssh bds-g11-n0 'echo "hello world on the VM 2"'
+          echo "hello world on the VM 2"
