@@ -14,4 +14,4 @@ jobs:
 
       - name: Execute commands and Local Forward over SSH
         run: |
-          echo "hello world on the VM 3"
+          echo "hello world on the VM 4"
