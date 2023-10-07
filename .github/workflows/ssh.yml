@@ -7,7 +7,7 @@ on:
 
 jobs:
   ssh:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Deploy]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
