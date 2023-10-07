@@ -6,7 +6,7 @@ on:
       - DockerDemoIntergration
 
 jobs:
-  ssh:
+  HelloWorld:
     runs-on: [self-hosted, Deploy]
     steps:
       - name: Checkout code
