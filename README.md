@@ -1,4 +1,5 @@
 ## Links:
+- Google Drive: [Software archetecture](https://drive.google.com/drive/folders/1egXgODszTE3b3q5GeSPpQWU0fImyXvr2?usp=share_link)
 - Documentation: [insert link here]
 - Project management tool: [insert link here]
 - [Latex template doc](https://github.com/Cows-Inc-SA-Fall23/Group11_SoftwareArchitecture/tree/9af5b6fd21b6a99a65ef000df82a54f8a029bcda/wiki)
