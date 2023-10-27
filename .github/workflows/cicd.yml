@@ -216,7 +216,14 @@ jobs:
 
       - name: Setup SSH Key
         run: |
+          # Validate the private key
+          if ! ssh-keygen -y -f <(echo "${{ secrets.SSH_PRIVATE_KEY }}") >/dev/null 2>&1; then
+            echo "Invalid private key"
+            exit 1
+          fi
+          # Write the private key to a file
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          # Set the file permissions
           chmod 600 private_key.pem
 
       - name: Transfer docker-compose to server
