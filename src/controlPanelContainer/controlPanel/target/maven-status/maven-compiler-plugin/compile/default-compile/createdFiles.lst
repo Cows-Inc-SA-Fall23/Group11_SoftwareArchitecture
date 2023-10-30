@@ -1,0 +1,5 @@
+madasi\controlPanel\configuration\FaviconConfiguration.class
+madasi\controlPanel\ControlPanelApplication.class
+madasi\controlPanel\configuration\WebConfig.class
+madasi\controlPanel\controller\HomeController.class
+madasi\controlPanel\ServletInitializer.class
