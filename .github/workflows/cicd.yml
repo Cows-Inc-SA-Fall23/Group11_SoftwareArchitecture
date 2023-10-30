@@ -228,10 +228,13 @@ jobs:
         run: |
           scp -o StrictHostKeyChecking=no -i private_key.pem ./src/mosquitto.conf ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }}:./
         continue-on-error: true
+      - name: Check if docker daemon is running
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl is-active docker || (sudo systemctl start docker && sleep 5 && sudo systemctl is-active docker || (echo 'Docker daemon failed to start' && exit 1))"
       - name: Run docker-compose Down on VM
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "docker-compose -f ./docker-compose.prod.yml down"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo docker-compose -f ./docker-compose.prod.yml down"
       - name: Run docker-compose --build up on VM
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "docker compose -f docker-compose.prod.yml build --no-cache" &&
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "docker compose -f docker-compose.prod.yml up -d"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo docker-compose -f docker-compose.prod.yml build --no-cache" &&
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo docker-compose -f docker-compose.prod.yml up -d"

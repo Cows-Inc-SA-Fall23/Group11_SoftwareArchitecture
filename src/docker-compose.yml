@@ -48,7 +48,7 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "16443:80"
     environment:
       - ASPNETCORE_URLS=http://+:80
     depends_on:
