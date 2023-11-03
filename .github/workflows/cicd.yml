@@ -291,7 +291,7 @@ jobs:
       - name: Run docker-compose on VM
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "
-            echo ${{ secrets.GHCR_PAT }} | 
+            echo ${{ secrets.GHCR }} | 
             docker login ghcr.io -u Fnux8890 --password-stdin &&
             sudo docker-compose -f docker-compose.prod.yml build --no-cache &&
             sudo docker-compose -f docker-compose.prod.yml up -d"
