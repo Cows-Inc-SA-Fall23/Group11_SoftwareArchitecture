@@ -1,51 +1,31 @@
-version: '3'
+version: '1'
 
 services:
-  publisher:
-    image: ghcr.io/nico8034/rust_publisher:latest
-    depends_on:
-      - mosquitto
-    
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    ports:
-      - "1883:1883"
-      - "9001:9001"
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: control_panel_db
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-
-  subscriber:
-    image: ghcr.io/nico8034/node_subscriber:latest
-    depends_on:
-      - postgres
-      - mosquitto
-    environment:
-      DATABASE_URL: postgresql://postgres:password@postgres:5432/mydatabase
-      DB_USER: postgres
-      DB_HOST: postgres
-      DB_NAME: mydatabase
-      DB_PASSWORD: password
-      DB_PORT: "5432"
-
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-  
-  api:
-    image: ghcr.io/nico8034/dotnet_api:latest
-    ports:
-      - "80:80"
-    environment:
-      - ASPNETCORE_URLS=http://+:80
-    depends_on:
-      - postgres
+      - "3307:3306"
+    networks:
+      - controlPanel_network
 
+  tomcat:
+    image: ghcr.io/cows-inc-sa-fall23/control_panel:latest
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - controlPanel_network
+      
 volumes:
-  postgres_data:
+  db_data: {}
+
+networks:
+  controlPanel_network:
+    driver: bridge
