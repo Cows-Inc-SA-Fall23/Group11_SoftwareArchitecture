@@ -84,6 +84,7 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn clean package
+        working-directory: ./src/controlPanelContainer/controlPanel
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
@@ -114,7 +115,7 @@ jobs:
       - name: Test application
         run: echo "test"
 
-  # Job for building and pushing docker images to registry      
+  # Job for building and pushing docker images to registry
   build-push-controlpanel:
     runs-on: ubuntu-latest
     needs: [test-application]
