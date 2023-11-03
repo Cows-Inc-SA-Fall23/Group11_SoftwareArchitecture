@@ -1,10 +1,12 @@
 package madasi.controlPanel.controller;
 
+import java.util.Locale;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,9 @@ import madasi.controlPanel.service.UserRepository;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+    private MessageSource messageSource;
 
 	Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -63,10 +68,13 @@ public class HomeController {
 //	@RequestMapping("/")
 
 	@RequestMapping("/")
-	public String home(Model model, HttpSession session) {
+	public String home(Model model, HttpSession session, Locale locale) {
+		String localeMessage = messageSource.getMessage("home.title", null, locale);
+
 		String messages = "Hello";
 
 		model.addAttribute("msg", messages);
+		model.addAttribute("msg", localeMessage);
 
 		return "home";
 	}
