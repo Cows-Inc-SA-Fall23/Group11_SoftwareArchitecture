@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: ./target/*.war # Replace with path to your compiled artifact
+          path: ./src/controlPanelContainer/controlPantel/target/*.war # Replace with path to your compiled artifact
 
   # Job for testing the application i.e
   test-application:
