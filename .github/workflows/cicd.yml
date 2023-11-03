@@ -16,6 +16,7 @@ on:
 env:
   SSH_USERNAME: sthor23
   DOCKER_IMAGE_API: dotnet_api
+  DOCKER_IMAGE_CONTROLPANEL: controlPanel
   DOCKER_IMAGE_PUBLISHER: rust_publisher
   DOCKER_IMAGE_SUBSCRIBER: node_subscriber
   DOCKER_IMAGE_NAME: lowercase-image-name
@@ -96,6 +97,23 @@ jobs:
           path: ./build
       - name: Test application
         run: echo "test"
+
+  # build-maven-project:
+  #   runs-on: ubuntu-latest
+  #   needs: clone-repository
+  #   steps:
+  #     - name: Download repository artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: repository-artifacts
+  #         path: .
+  #     - name: Build Maven project
+  #       run: mvn clean package
+  #     - name: Extract WAR file
+  #       run: |
+  #         mkdir war
+  #         cd war
+  #         jar -xvf ../target/*.war
 
   build-push-api:
     runs-on: ubuntu-latest

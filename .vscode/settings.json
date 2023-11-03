@@ -17,4 +17,5 @@
       "report/ReflectionsTemplate/*.tex",
     ],
   },
+  "cmake.configureOnOpen": false,
 }
