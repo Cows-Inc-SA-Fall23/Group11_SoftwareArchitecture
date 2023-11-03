@@ -27,15 +27,15 @@ public class KafkaIntegrationTest {
     @Autowired
     private ConsumerService consumerService;
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+//    @Autowired
+//    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Test
     @Timeout(10)
     public void givenEmbeddedKafkaBroker_whenSendingToSimpleProducer_thenMessageReceived() throws Exception {
         // Arrange
         String data = "Sending with own simple KafkaProducer";
-        kafkaTemplate.send(TEST_TOPIC, data);
+//        kafkaTemplate.send(TEST_TOPIC, data);
 
         // Act
         producerService.sendMessage(TEST_TOPIC, data);

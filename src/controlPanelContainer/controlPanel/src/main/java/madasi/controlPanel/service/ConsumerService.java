@@ -14,9 +14,13 @@ public class ConsumerService {
     private CountDownLatch latch = new CountDownLatch(1);
     private String payload = null;
 
+    /**
+     * when an event happens, we can reference other controllers/services here. 
+     * @param message
+     */
     @KafkaListener(topics = "${kafka.topic.name}", groupId = "${kafka.group.id}")
     public void listen(String message) {
-//        logger.info("Received message in group foo: {}", message);
+        logger.info("Received message: {}", message);
         payload = message;
         latch.countDown();
     }
@@ -25,6 +29,10 @@ public class ConsumerService {
         return latch;
     }
 
+    /**
+     * This just gets the latest message.
+     * @return
+     */
     public String getPayload() {
         return payload;
     }
