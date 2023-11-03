@@ -1,3 +1,9 @@
+FROM maven:3.8.3-openjdk-17-slim AS build
+WORKDIR /app
+COPY ./controlPanel .
+RUN mvn package -DskipTests
+
+
 # Start with a base image containing Java runtime
 FROM openjdk:17-jdk
 
@@ -18,7 +24,8 @@ ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
 
 # Copy the war file to the webapps directory of Tomcat
-COPY controlPanel.war $CATALINA_HOME/webapps/
+COPY --from=build /app/target/*.war $CATALINA_HOME/webapps/
+
 
 # Command to run Tomcat
 CMD ["catalina.sh", "run"]

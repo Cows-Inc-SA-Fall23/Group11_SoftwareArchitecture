@@ -1,59 +1,90 @@
 version: '3'
 
 services:
-
-  publisher:
-    build:
-      context: ./publisher
-      dockerfile: Dockerfile
-    depends_on:
-      - mosquitto
-    
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    ports:
-      - "1883:1883"
-      - "9001:9001"
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: control_panel_db
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - controlPanel_network
 
-  subscriber:
+  tomcat:
     build:
-      context: ./subscriber
+      context: ./controlPanelContainer
       dockerfile: Dockerfile
     depends_on:
-      - postgres
-      - mosquitto
-    environment:
-      DATABASE_URL: postgresql://postgres:password@postgres:5432/mydatabase
-      DB_USER: postgres
-      DB_HOST: postgres
-      DB_NAME: mydatabase
-      DB_PASSWORD: password
-      DB_PORT: "5432"
-
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      - db
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-  
-  api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    ports:
-      - "16443:80"
-    environment:
-      - ASPNETCORE_URLS=http://+:80
-    depends_on:
-      - postgres
-
+      - "8080:8080"
+    networks:
+      - controlPanel_network
       
 volumes:
-  postgres_data:
+  db_data: {}
+
+networks:
+  controlPanel_network:
+    driver: bridge
+
+
+
+
+
+
+  # publisher:
+  #   build:
+  #     context: ./publisher
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - mosquitto
+    
+  # mosquitto:
+  #   image: eclipse-mosquitto:latest
+  #   ports:
+  #     - "1883:1883"
+  #     - "9001:9001"
+  #   volumes:
+  #     - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  # subscriber:
+  #   build:
+  #     context: ./subscriber
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - postgres
+  #     - mosquitto
+  #   environment:
+  #     DATABASE_URL: postgresql://postgres:password@postgres:5432/mydatabase
+  #     DB_USER: postgres
+  #     DB_HOST: postgres
+  #     DB_NAME: mydatabase
+  #     DB_PASSWORD: password
+  #     DB_PORT: "5432"
+
+  # postgres:
+  #   image: postgres:latest
+  #   environment:
+  #     POSTGRES_DB: mydatabase
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  
+  # api:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "16443:80"
+  #   environment:
+  #     - ASPNETCORE_URLS=http://+:80
+  #   depends_on:
+  #     - postgres
