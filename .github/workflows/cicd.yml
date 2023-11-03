@@ -16,6 +16,7 @@ on:
 env:
   SSH_USERNAME: sthor23
   DOCKER_IMAGE_API: dotnet_api
+  DOCKER_IMAGE_CONTROLPANEL: controlPanel
   DOCKER_IMAGE_PUBLISHER: rust_publisher
   DOCKER_IMAGE_SUBSCRIBER: node_subscriber
   DOCKER_IMAGE_NAME: lowercase-image-name
