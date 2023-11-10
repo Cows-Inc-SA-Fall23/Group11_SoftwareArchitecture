@@ -18,6 +18,8 @@ public class User {
 	private String phoneNo;
 	
 	private String password;
+	
+	private Integer user_level;
 
 	public Integer getId() {
 		return id;
@@ -57,6 +59,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getUser_level() {
+		return user_level;
+	}
+
+	public void setUser_level(Integer user_level) {
+		this.user_level = user_level;
 	}
 
 }

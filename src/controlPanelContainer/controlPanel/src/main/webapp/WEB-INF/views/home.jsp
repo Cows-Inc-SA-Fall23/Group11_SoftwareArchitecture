@@ -1,14 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <html>
 <head>
-<jsp:include page='components/imports.jsp'>
-	<jsp:param name="someParam" value="false" />
-</jsp:include>
+
+<jsp:include page='components/imports.jsp' />
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Control Panel</title>
+<title>${title}</title>
 
 <link href="webjars/bootstrap/5.2.3/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -47,7 +49,7 @@
 		</div>
 		<div id="main" role="main" class="inner cover position-absolute p-3">
 			<h1 class="cover-heading">
-				BIOMON COMING <b>SOON&#8482;</b>.
+				<spring:message code="biomon.comingSoon" />
 			</h1>
 			<p class="lead">Some description&#8482;</p>
 			<p class="lead">
@@ -56,8 +58,9 @@
 		</div>
 		<footer class="mastfoot mt-auto p-3">
 			<div class="inner">
-				<p>asdf</p>
-				<p><spring:message code="hello"/></p>
+				<p>
+					<spring:message code="hello" text="**Temp text" />
+				</p>
 			</div>
 		</footer>
 	</div>

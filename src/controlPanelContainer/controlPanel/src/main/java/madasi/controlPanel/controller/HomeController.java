@@ -69,12 +69,8 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home(Model model, HttpSession session, Locale locale) {
-		String localeMessage = messageSource.getMessage("home.title", null, locale);
-
-		String messages = "Hello";
-
-		model.addAttribute("msg", messages);
-		model.addAttribute("msg", localeMessage);
+		String localeTitle = messageSource.getMessage("home.title", null, locale);
+		model.addAttribute("title", localeTitle);
 
 		return "home";
 	}
