@@ -16,7 +16,7 @@ on:
 env:
   SSH_USERNAME: sthor23
   DOCKER_IMAGE_API: dotnet_api
-  DOCKER_IMAGE_CONTROLPANEL: controlPanel
+  DOCKER_IMAGE_CONTROLPANEL: control_panel
   DOCKER_IMAGE_PUBLISHER: rust_publisher
   DOCKER_IMAGE_SUBSCRIBER: node_subscriber
   DOCKER_IMAGE_NAME: lowercase-image-name
@@ -77,13 +77,13 @@ jobs:
         run: echo "build app"
 
       - name: Set up  JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'oracle'
           cache: maven
       - name: Build with Maven
-        run: mvn clean package
+        run: mvn clean package -DskipTests
         working-directory: ./src/controlPanelContainer/controlPanel
 
       - name: Build Docker image
@@ -97,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: ./target/*.war # Replace with path to your compiled artifact
+          path: ./src/controlPanelContainer/controlPanel/target/*.war # Replace with path to your compiled artifact
 
   # Job for testing the application i.e
   test-application:
@@ -144,7 +144,7 @@ jobs:
       - name: Build & Push image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/controlPanel
+          context: ./src/controlPanelContainer/
           push: true
           tags:
             ghcr.io/${{ env.OWNER_LOWER }}/${{ env.DOCKER_IMAGE_CONTROLPANEL
@@ -278,17 +278,19 @@ jobs:
       - name: Transfer docker-compose to server
         run: |
           scp -o StrictHostKeyChecking=no -i private_key.pem ./src/docker-compose.prod.yml ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }}:./
-      - name: Transfer mosquitto config to server
-        run: |
-          scp -o StrictHostKeyChecking=no -i private_key.pem ./src/mosquitto.conf ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }}:./
-        continue-on-error: true
+      # - name: Transfer mosquitto config to server
+      #   run: |
+      #     scp -o StrictHostKeyChecking=no -i private_key.pem ./src/mosquitto.conf ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }}:./
+      #   continue-on-error: true
       - name: Check if docker daemon is running
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl is-active docker || (sudo systemctl start docker && sleep 5 && sudo systemctl is-active docker || (echo 'Docker daemon failed to start' && exit 1))"
       - name: Run docker-compose Down on VM
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo docker-compose -f ./docker-compose.prod.yml down"
-      - name: Run docker-compose --build up on VM
+      - name: Run docker-compose on VM
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo docker-compose -f docker-compose.prod.yml build --no-cache" &&
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "sudo docker-compose -f docker-compose.prod.yml up -d"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ env.SSH_USERNAME }}@${{ secrets.SERVER_IP }} "
+            sudo docker-compose -f docker-compose.prod.yml build --no-cache &&
+            sudo docker-compose -f docker-compose.prod.yml up -d"
+

@@ -1,4 +1,4 @@
-version: '1'
+version: '3'
 
 services:
   db:
@@ -24,6 +24,18 @@ services:
       - "8080:8080"
     networks:
       - controlPanel_network
+      
+volumes:
+  db_data: {}
+
+networks:
+  controlPanel_network:
+    driver: bridge
+
+
+
+
+
 
   # publisher:
   #   build:
@@ -76,11 +88,3 @@ services:
   #     - ASPNETCORE_URLS=http://+:80
   #   depends_on:
   #     - postgres
-
-      
-volumes:
-  db_data: {}
-
-networks:
-  controlPanel_network:
-    driver: bridge
