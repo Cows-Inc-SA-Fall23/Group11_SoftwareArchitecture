@@ -1,11 +1,13 @@
 package madasi.controlPanel.controller;
 
 import java.util.Locale;
+import madasi.controlPanel.util.CustomUtil;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,8 @@ public class HomeController {
 
 	Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	String PROJECT_NAME = "Farmer Control Panel";
+	@Value("${project.name}")
+	public String PROJECT_NAME;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -39,18 +42,20 @@ public class HomeController {
 	void onStartup() {
 		try {
 			logger.info("HELLO");
+			logger.info(PROJECT_NAME);
 			Optional<Setting> s = settingRepository.findById(1);
 			Setting setupSet;
 			if (s.isEmpty()) {
 				setupSet = new Setting();
 				setupSet.setId(1);
+				setupSet.setProjectName(PROJECT_NAME);
 				settingRepository.save(setupSet);
 			} else {
 				setupSet = s.get();
 			}
 			setupSet.setProjectName(PROJECT_NAME);
-			settingRepository.save(s.get());
-			logger.info(s.toString());
+			settingRepository.save(setupSet);
+			logger.info(setupSet.toString());
 
 		} catch (Exception e) {
 			logger.error("On startup error: ", e);
