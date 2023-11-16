@@ -21,6 +21,11 @@
 		<project.name>controlPanel</project.name>
 	</properties>
 	<dependencies>
+		<!--Data deserialization-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
 		<!--KAFKA-->
 		<dependency>
 			<groupId>org.apache.kafka</groupId>

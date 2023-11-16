@@ -35,7 +35,6 @@ public class KafkaIntegrationTest {
     public void givenEmbeddedKafkaBroker_whenSendingToSimpleProducer_thenMessageReceived() throws Exception {
         // Arrange
         String data = "Sending with own simple KafkaProducer";
-//        kafkaTemplate.send(TEST_TOPIC, data);
 
         // Act
         producerService.sendMessage(TEST_TOPIC, data);
