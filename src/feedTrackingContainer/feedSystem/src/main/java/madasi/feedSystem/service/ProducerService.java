@@ -18,7 +18,6 @@ public class ProducerService {
     }
 
     public void sendMessage(String topic, String message) {
-        logger.info("Sending message to topic: {}", topic);
     	kafkaTemplate.send(topic, message);
     }
 }

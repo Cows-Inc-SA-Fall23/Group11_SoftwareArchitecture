@@ -40,7 +40,7 @@ public class KafkaIntegrationTest {
         producerService.sendMessage(TEST_TOPIC, data);
 
         // Assert
-        consumerService.getLatch().await();
+        consumerService.getLatch().await();	//latch works for 1 to 1 testing stuff, but for "production" use the silo example with the generated ID in a map
         
         assertThat(consumerService.getLatch().getCount()).isEqualTo(0);
         assertThat(consumerService.getPayload()).contains(data);

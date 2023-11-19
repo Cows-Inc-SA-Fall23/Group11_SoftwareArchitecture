@@ -19,8 +19,7 @@ public class CustomUtil {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public static Object convertJsonToObject(String json, Class c) {
+	public static Object convertJsonToObject(String json, Class<?> c) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			return objectMapper.readValue(json, c);

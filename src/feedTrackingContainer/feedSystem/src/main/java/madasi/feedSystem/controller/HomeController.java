@@ -1,5 +1,7 @@
 package madasi.feedSystem.controller;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -83,9 +85,14 @@ public class HomeController {
 	@RequestMapping("/silos")
 	public String silos(Model model, HttpSession session) {
 		
+		List<Silo> silos = new ArrayList<>();
+		
 		for(Silo s : siloRepository.findAll()) {
 			logger.info(s.getName());
+			silos.add(s);
 		}
+		
+		model.addAttribute("silosA", silos);
 		
 		return "silos";
 	}

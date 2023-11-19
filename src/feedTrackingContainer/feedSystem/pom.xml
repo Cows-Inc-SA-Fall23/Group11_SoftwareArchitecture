@@ -20,6 +20,37 @@
 		<project.name>feedSystem</project.name>
 	</properties>
 	<dependencies>
+		<!-- javamelody-core for Jakarta EE such as Tomcat 10 -->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- itext, option to add PDF export -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bctsp-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jrobin</groupId>
+			<artifactId>jrobin</artifactId>
+			<version>1.5.9</version>
+		</dependency>
 		<!--Data deserialization-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -102,27 +133,41 @@
 			<scope>provided</scope>
 		</dependency>
 		<!--JSTL-->
+		<!--
+		https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+			<groupId>
+				org.springframework.boot</groupId>
+			<artifactId>
+				spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+			<scope>
+				runtime</scope>
 			<optional>true</optional>
 		</dependency>
 		<!--		<dependency>-->
@@ -131,19 +176,23 @@
 		<!--			<scope>runtime</scope>-->
 		<!--		</dependency>-->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
+			<groupId>
+				org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
+			<scope>
+				test</scope>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
+				<groupId>
+					org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>${project.name}</finalName>
+		<finalName>
+			${project.name}</finalName>
 
 		<resources>
 			<resource>

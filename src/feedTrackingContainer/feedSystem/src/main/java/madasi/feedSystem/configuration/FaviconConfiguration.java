@@ -14,21 +14,4 @@ public class FaviconConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("/feedSystem/static/");
     }
 	
-//	@Autowired
-//	ApplicationContext applicationContext;
-//
-//	@Bean
-//	public SimpleUrlHandlerMapping faviconHandlerMapping() {
-//		SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
-//		mapping.setOrder(Integer.MIN_VALUE);
-//		mapping.setUrlMap(Collections.singletonMap("/ddd/favicon.ico", faviconRequestHandler()));
-//		return mapping;
-//	}
-//
-//	@Bean
-//	protected ResourceHttpRequestHandler faviconRequestHandler() {
-//		ResourceHttpRequestHandler requestHandler = new ResourceHttpRequestHandler();
-//		requestHandler.setLocations(Arrays.<Resource>asList(new ClassPathResource("/")));
-//		return requestHandler;
-//	}
 }

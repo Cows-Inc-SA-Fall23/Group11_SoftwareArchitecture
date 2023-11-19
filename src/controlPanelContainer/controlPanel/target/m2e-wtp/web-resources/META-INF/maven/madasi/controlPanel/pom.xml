@@ -21,6 +21,37 @@
 		<project.name>controlPanel</project.name>
 	</properties>
 	<dependencies>
+		<!-- javamelody-core for Jakarta EE such as Tomcat 10 -->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- itext, option to add PDF export -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bctsp-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jrobin</groupId>
+			<artifactId>jrobin</artifactId>
+			<version>1.5.9</version>
+		</dependency>
 		<!--Data deserialization-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -138,6 +169,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>madasi</groupId>
+			<artifactId>feedSystem</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
