@@ -1,71 +1,124 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<html>
-<head>
+			<html>
 
-<jsp:include page='components/imports.jsp' />
+			<head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+				<jsp:include page='components/imports.jsp' />
 
-<title>${title}</title>
+				<meta charset="UTF-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="webjars/bootstrap/5.2.3/css/bootstrap.min.css"
-	rel="stylesheet">
+				<title>${title}</title>
 
-<link rel="stylesheet" href="/labSystem/css/general.css">
+				<link href="webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="shortcut icon" href="/labSystem/favicon.ico"
-	type="image/x-icon">
+				<link rel="stylesheet" href="/labSystem/css/general.css">
+
+				<link rel="shortcut icon" href="/controlPanel/favicon.ico" type="image/x-icon">
 
 
-<script src="webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
-<script src="webjars/jquery/3.6.3/jquery.min.js"></script>
-<!-- Custom styles for this template -->
-</head>
-<body class="text-center overflow-hidden">
-	<div style="width: 100%; max-width: 100%;"
-		class="cover-container d-flex w-100 h-100 mx-auto flex-column">
-		<header class="masthead mb-auto p-3">
-			<div id="navbar" class="inner">
-				<a id="logoLink" class="nav-link" href="/labSystem/">
-					<h3 class="masthead-brand">Home</h3>
-				</a>
-				<nav id="centered-nav"
-					class="nav nav-masthead justify-content-center">
-					<a class="nav-link" href="/labSystem/silos">Silos</a>
-				</nav>
-				<nav class="nav nav-masthead nav2-fix">
-					<a class="nav-link" href="/labSystem/contact">Contact</a>
-				</nav>
-			</div>
-		</header>
-		<div id="logo">
-			<img id="logoImage" src="images/cow.png" alt="Logo">
-		</div>
-		<div id="main" role="main" class="inner cover position-absolute p-3">
-			<h1 class="cover-heading">
-				<spring:message code="biomon.comingSoon" />
-			</h1>
-			<p class="lead">Some description&#8482;</p>
-			<p class="lead">
-				<a href="#" class="btn btn-lg btn-secondary">WISHLIST NOW</a>
-			</p>
-		</div>
-		<footer class="mastfoot mt-auto p-3">
-			<div class="inner">
-				<p>
-					<spring:message code="hello" text="**Temp text" />
-				</p>
-			</div>
-		</footer>
-	</div>
-	<div id="pageBg"></div>
-	<div id="pageBgEffect"></div>
-	<script type="text/javascript">
-		console.log("Hello");
-	</script>
-</body>
-</html>
+				<script src="webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+				<script src="webjars/jquery/3.6.3/jquery.min.js"></script>
+
+			</head>
+
+			<body class="text-center overflow-hidden">
+				<div style="width: 100%; max-width: 100%;"
+					class="cover-container d-flex w-100 h-100 mx-auto flex-column">
+					<header class="masthead mb-auto p-3">
+						<div id="navbar" class="inner">
+							<nav id="centered-nav" class="nav nav-masthead justify-content-center">
+								<a class="nav-link" href="/controlPanel/Home">Home</a>
+							</nav>
+						</div>
+					</header>
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="blue-box">
+									<div class="top-left-box">Product Batches</div>
+									<div class="batch" id="batch1">Batch #1 - Pass</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="blue-box">
+									<div class="top-left-box">Product Details</div>
+									<div>Product #1 - ...</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="blue-box">
+									<div class="top-left-box">Reports</div>
+									<div class="button-container d-grid gap-2 col-4 mx-auto">
+										<div class="report" id="Report1">Report #1: ...</div>
+										<button class="btn btn-outline-secondary btn-sm" type="button">Generate
+											Report</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="blue-box">
+									<div class="top-left-box">Monitoring</div>
+									<div class="container mt-3">
+										<div class="mt-4"></div>
+										<div class="row">
+											<div class="col-11">
+												<div class="progress" style="height: 20px;">
+													<div class="monitoring-box progress-bar" role="progressbar"
+														style="width: 50%; background-color: #0E0E2C" aria-valuenow="50"
+														aria-valuemin="0" aria-valuemax="100">50% Humidity</div>
+												</div>
+												<div class="mt-2"></div>
+												<div class="progress" style="height: 20px;">
+													<div class="monitoring-box progress-bar" role="progressbar"
+														style="width: 70%; background-color: #0E0E2C" aria-valuenow="50"
+														aria-valuemin="0" aria-valuemax="100">70% Feed Capacity </div>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-12 d-flex flex-column">
+											<button class="btn btn-outline-secondary btn-sm align-self-end"
+												type="button">Next</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="blue-box">
+									<div class="top-left-box">Alerts</div>
+									<div>Alert ID#1 - ...</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="blue-box">
+									<div class="top-left-box">Standards</div>
+									<div>Standard #1 - ...</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<footer class="mastfoot mt-auto p-3">
+						<div class="inner">
+							<p>
+								<spring:message code="hello" text="**Temp text" />
+							</p>
+						</div>
+					</footer>
+				</div>
+				<div id="pageBg"></div>
+				<div id="pageBgEffect"></div>
+				<script type="text/javascript">
+					console.log("Hello");
+				</script>
+			</body>
+
+			</html>

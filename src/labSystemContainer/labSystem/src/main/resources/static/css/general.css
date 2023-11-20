@@ -21,14 +21,18 @@
  */
 
 /* Links */
-a:focus, a:hover {
+a:focus,
+a:hover {
 	color: rgba(255, 255, 255, 0.75);
 }
 
 /* Custom default button */
-.btn-secondary, .btn-secondary:hover, .btn-secondary:focus {
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
 	color: #333;
-	text-shadow: none; /* Prevent inheritance from `body` */
+	text-shadow: none;
+	/* Prevent inheritance from `body` */
 	background-color: #fff;
 	border: .05rem solid #fff;
 }
@@ -36,7 +40,8 @@ a:focus, a:hover {
 /*
  * Base structure
  */
-html, body {
+html,
+body {
 	height: 100%;
 	background-color: rgb(0, 0, 0);
 }
@@ -54,34 +59,34 @@ body {
  */
 .masthead {
 	margin-bottom: 2rem;
-	background-color:#ffffff;
-	z-index:1;
-    opacity: 95%;
+	background-color: #ffffff;
+	z-index: 1;
+	opacity: 95%;
 }
 
 .masthead-brand {
-	z-index:2;
 	margin-bottom: 0;
-	color:white;
+	color: white;
 	-webkit-text-stroke: 1px #000000;
 }
 
-#logoLink{
-	color:white;
+#logoLink {
+	color: white;
 }
 
-#centered-nav .nav-link{
-	margin-left:2rem;
-	margin-right:2rem;
-	margin-top:1px;
-	margin-bottom:1px;
+#centered-nav .nav-link {
+	margin-left: 2rem;
+	margin-right: 2rem;
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 
-.nav-link{
+.nav-link {
 	color: #0d6efd;
 }
 
-.nav-masthead .nav-link:hover, .nav-masthead .nav-link:focus {
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
 	border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -94,10 +99,11 @@ body {
 	border-bottom-color: #fff;
 }
 
-@media ( min-width : 48em) {
+@media (min-width : 48em) {
 	.masthead-brand {
 		float: left;
 	}
+
 	.nav-masthead {
 		float: right;
 	}
@@ -115,13 +121,14 @@ body {
 	font-weight: 700;
 }
 
-.nav2-fix .nav-link:hover, .nav-masthead .nav-link:focus {
-    border-bottom-color: rgba(255, 255, 255, .25);
+.nav2-fix .nav-link:hover,
+.nav-masthead .nav-link:focus {
+	border-bottom-color: rgba(255, 255, 255, .25);
 }
 
 /* caused by the other nav bar being spread to width:100% and going over this one */
-.nav2-fix{
-	z-index:2;
+.nav2-fix {
+	z-index: 2;
 }
 
 /*
@@ -140,51 +147,104 @@ body {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
- 	pointer-events: none;
+	pointer-events: none;
 }
 
 #main {
-	left:50%;
-    transform: translateX(-50%);
-    top:50%;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 50%;
 }
 
-#navbar{
-    display: flex;
-    justify-content: space-between;
+#navbar {
+	display: flex;
+	justify-content: space-between;
 }
 
-#centered-nav{
+#centered-nav {
 	left: 0px;
-    right: 0px;
-    position: absolute;
+	right: 0px;
+	position: relative;
+}
+
+.blue-box {
+	height: 150px;
+	background-color: white;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	font-size: 16px;
+	margin-top: 10px;
+	position: relative;
+	border-radius: 10px;
+}
+
+.top-left-box {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: #6c757d;
+	color: white;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.button-container {
+	margin-top: 30px;
+
+}
+
+.batch {
+	padding: 15px;
+	margin: 15px;
+	font-size: 15px;
+	color: #333;
+}
+
+.report {
+	padding: 5px;
+	margin: 5px;
+	font-size: 15px;
+	color: #333;
+	text-align: center;
+}
+
+
+.monitoring-box {
+	padding-bottom: 1px;
+	text-align: left;
+	padding-left: 190px;
 }
 
 /*
  * Simple animation
  */
- #logo{
- 	transform: translate(-50%, -20%);
-	position:absolute;
-	top:0px;
-	left:50%;
-	z-index:0;
- }
- #logoImage{
- 	transition: animation-duration 1s;
- 	height:20rem;
- 	animation-name: spin;
+#logo {
+	transform: translate(-50%, -20%);
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	z-index: 0;
+}
+
+#logoImage {
+	transition: animation-duration 1s;
+	height: 20rem;
+	animation-name: spin;
 	animation-duration: 5s;
-  	animation-iteration-count: infinite;
-  	animation-timing-function: linear;
-  	content:url("../images/cow.png");
- }
-  
-  @keyframes spin {
-	    from {
-	        transform:rotate(0deg);
-	    }
-	    to {
-	        transform:rotate(360deg);
-	    }
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	content: url("../images/cow.png");
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
 	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -1,23 +1,24 @@
 package madasi.labSystem.model;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
-public class Livestock {
+public class Monitoring {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private Integer batch_id;
+
     private Integer type;
 
-    private Integer status;
+    private Integer value;
 
-    private Timestamp date_of_birth;
+    private Timestamp time;
 
     public Integer getId() {
         return id;
@@ -25,6 +26,14 @@ public class Livestock {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getBatch_id() {
+        return batch_id;
+    }
+
+    public void setBatch_id(Integer batch_id) {
+        this.batch_id = batch_id;
     }
 
     public Integer getType() {
@@ -35,20 +44,20 @@ public class Livestock {
         this.type = type;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
-    public Timestamp getDate_of_birth() {
-        return date_of_birth;
+    public Timestamp getTime() {
+        return time;
     }
 
-    public void setDate_of_birth(Timestamp date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
 }
