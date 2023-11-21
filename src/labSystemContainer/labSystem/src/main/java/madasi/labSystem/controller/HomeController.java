@@ -11,20 +11,25 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
+import madasi.labSystem.model.Report;
 import madasi.labSystem.model.Setting;
 import madasi.labSystem.model.Silo;
 import madasi.labSystem.service.SettingRepository;
 import madasi.labSystem.service.SiloRepository;
+import madasi.labSystem.service.ReportService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
-    private MessageSource messageSource;
+	private MessageSource messageSource;
 
 	Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -70,7 +75,7 @@ public class HomeController {
 	}
 
 	// if you want the home page to be something else.
-//	@RequestMapping("/")
+	// @RequestMapping("/")
 
 	@RequestMapping("/")
 	public String home(Model model, HttpSession session, Locale locale) {
@@ -82,12 +87,22 @@ public class HomeController {
 
 	@RequestMapping("/silos")
 	public String silos(Model model, HttpSession session) {
-		
-		for(Silo s : siloRepository.findAll()) {
+
+		for (Silo s : siloRepository.findAll()) {
 			logger.info(s.getName());
 		}
-		
+
 		return "silos";
 	}
-	
+
+	@Autowired
+	private ReportService ReportService;
+
+	@PostMapping("/generateReport")
+	public String generateReport(@RequestParam String reportText, @RequestParam Integer batchId,
+			RedirectAttributes redirectAttributes) {
+		Report report = ReportService.createReport(reportText, batchId);
+		redirectAttributes.addFlashAttribute("report", report);
+		return "redirect:/home";
+	}
 }

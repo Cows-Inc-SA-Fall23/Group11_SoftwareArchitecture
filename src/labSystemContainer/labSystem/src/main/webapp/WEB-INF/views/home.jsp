@@ -22,7 +22,15 @@
 
 				<script src="webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
 				<script src="webjars/jquery/3.6.3/jquery.min.js"></script>
+				<style>
+					.modal-dialog {
+						max-width: 800px;
+					}
 
+					.black-text {
+						color: black;
+					}
+				</style>
 			</head>
 
 			<body class="text-center overflow-hidden">
@@ -56,7 +64,8 @@
 									<div class="top-left-box">Reports</div>
 									<div class="button-container d-grid gap-2 col-4 mx-auto">
 										<div class="report" id="Report1">Report #1: ...</div>
-										<button class="btn btn-outline-secondary btn-sm" type="button">Generate
+										<button class="btn btn-outline-secondary btn-sm" type="button"
+											data-bs-toggle="modal" data-bs-target="#reportModal">Generate
 											Report</button>
 									</div>
 								</div>
@@ -119,6 +128,47 @@
 				<script type="text/javascript">
 					console.log("Hello");
 				</script>
+				<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title black-text" id="reportModalLabel">New Report</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form id="reportForm" action="/generateReport" method="post">
+									<input type="hidden" name="batchId" value="${batchId}" />
+									<div class="mb-3">
+										<label for="reportText" class="form-label black-text">Report Content</label>
+										<textarea class="form-control" id="reportText" name="reportText"
+											required></textarea>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-outline-secondary">Save Report</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="reportDetailsModal" tabindex="-1" role="dialog"
+					aria-labelledby="reportDetailsModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="reportDetailsModalLabel">Report Details</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							</div>
+						</div>
+					</div>
+				</div>
 			</body>
 
 			</html>
