@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <html>
 <head>
@@ -81,7 +81,6 @@
 	<div id="pageBg"></div>
 	<div id="pageBgEffect"></div>
 	<script type="text/javascript">
-	
 		function createSilo() {
 		    var name = document.getElementById('name').value;
 		    var capacity = document.getElementById('capacity').value;
