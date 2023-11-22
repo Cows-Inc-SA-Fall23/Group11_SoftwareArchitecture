@@ -13,7 +13,7 @@ import madasi.feedSystem.model.Silo;
 import madasi.feedSystem.service.SiloRepository;
 
 @RestController
-@RequestMapping("/silos")
+@RequestMapping("/silosModel")
 public class SiloController {
 	Logger logger = LoggerFactory.getLogger(SiloController.class);
 

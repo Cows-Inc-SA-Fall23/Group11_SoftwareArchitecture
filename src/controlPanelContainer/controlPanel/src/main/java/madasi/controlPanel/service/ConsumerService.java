@@ -1,28 +1,24 @@
 package madasi.controlPanel.service;
 
-import madasi.controlPanel.controller.MessageBusController;
-import madasi.controlPanel.util.CustomUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+import madasi.controlPanel.util.CustomUtil;
+
 @Service
 public class ConsumerService {
 
-    private final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
+    @SuppressWarnings("unused")
+	private final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
     private CountDownLatch latch = new CountDownLatch(1);
     private String payload = null;
     
-    @Autowired
-    private MessageBusController mbc;
-
     /**
      * when an event happens, we can reference other controllers/services here. 
      * @param message
@@ -42,10 +38,10 @@ public class ConsumerService {
     	String requestId = list.get(0);
         String responseData = list.get(1);
 
-        CompletableFuture<String> future = mbc.getFromRequestMap(requestId);
+        CompletableFuture<String> future = CustomUtil.getFromRequestMap(requestId);
         if (future != null) {
             future.complete(responseData);
-            mbc.removeFromRequestMap(requestId);
+            CustomUtil.removeFromRequestMap(requestId);
         }
     }
 
