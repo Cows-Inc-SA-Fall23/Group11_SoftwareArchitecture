@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 			<html>
 
@@ -39,7 +39,7 @@
 					<header class="masthead mb-auto p-3">
 						<div id="navbar" class="inner">
 							<nav id="centered-nav" class="nav nav-masthead justify-content-center">
-								<a class="nav-link" href="/controlPanel/Home">Home</a>
+								<a class="nav-link" href="/controlPanel">Home</a>
 							</nav>
 						</div>
 					</header>
@@ -63,7 +63,14 @@
 								<div class="blue-box">
 									<div class="top-left-box">Reports</div>
 									<div class="button-container d-grid gap-2 col-4 mx-auto">
-										<div class="report" id="Report1">Report #1: ...</div>
+										<div class="report-container">
+											<%-- <c:forEach items="${reports}" var="report">
+												<a href="#" class="report-link" data-bs-toggle="modal"
+													data-bs-target="#reportDetailsModal"
+													data-report-id="${report.id}">Report #${report.id}</a>
+												</c:forEach>
+												--%>
+										</div>
 										<button class="btn btn-outline-secondary btn-sm" type="button"
 											data-bs-toggle="modal" data-bs-target="#reportModal">Generate
 											Report</button>
@@ -169,6 +176,30 @@
 						</div>
 					</div>
 				</div>
+				<script>
+					document.addEventListener('DOMContentLoaded', function () {
+						const reportLinks = document.querySelectorAll('.report-link');
+						reportLinks.forEach(link => {
+							link.addEventListener('click', function (event) {
+								event.preventDefault();
+								const reportId = this.getAttribute('data-report-id');
+								fetchReportDetails(reportId);
+							});
+						});
+					});
+
+					function fetchReportDetails(reportId) {
+						fetch('/api/reports/' + reportId)
+							.then(response => response.json())
+							.then(data => {
+								const modalBody = document.querySelector('#reportDetailsModal .modal-body');
+								modalBody.innerHTML = '<p>ID: ' + data.id + '</p>'
+									+ '<p>Content: ' + data.report_text + '</p>'
+									+ '<p>Date: ' + data.date + '</p>';
+							})
+							.catch(error => console.error('Error fetching report details:', error));
+					}
+				</script>
 			</body>
 
 			</html>
