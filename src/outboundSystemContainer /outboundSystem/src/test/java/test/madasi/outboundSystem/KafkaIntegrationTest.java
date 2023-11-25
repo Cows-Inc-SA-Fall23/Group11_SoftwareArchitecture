@@ -6,13 +6,11 @@ import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import madasi.outboundSystem.labSystemApplication;
+import madasi.outboundSystem.outboundSystemApplication;
 import madasi.outboundSystem.service.ConsumerService;
 import madasi.outboundSystem.service.ProducerService;
-
 
 @SpringBootTest(classes = outboundSystemApplication.class) // This will load your full Spring context based on your main application
 @ExtendWith(SpringExtension.class)
