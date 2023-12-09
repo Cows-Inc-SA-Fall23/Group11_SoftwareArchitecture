@@ -10,9 +10,9 @@ group_id = 'my_consumer_group'
 
 # HDFS Configuration
 hdfs_url = 'http://localhost:50070'
-hdfs_path = '/user/hive/csv'
+hdfs_path = '/user/hive/warehouse/sensor'
 
-client = InsecureClient(hdfs_url, user='root')
+client = InsecureClient(hdfs_url, user='root', timeout=10)
 
 
 def consume_from_kafka_and_write_to_hdfs():
@@ -34,7 +34,7 @@ def consume_from_kafka_and_write_to_hdfs():
 
                     print(f"Processing message: {data}")
 
-                    sensor_id = data['sensor_id']
+                    id = data['id']
                     value = data['value']
                     timestamp = data['timestamp']
 
@@ -42,7 +42,7 @@ def consume_from_kafka_and_write_to_hdfs():
                     all_messages.append(data)
 
         # Write all messages to a CSV file in HDFS
-        hdfs_file_path = f'{hdfs_path}/all_data.csv'
+        hdfs_file_path = f'{hdfs_path}/alldatanew.csv'
         print(f"Writing to HDFS file: {hdfs_file_path}")
 
         with client.write(hdfs_file_path, overwrite=True) as writer:

@@ -13,7 +13,7 @@ services:
       - "50070:50070"
   datanode:
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
-    hostname: localhost
+    hostname: datanode
     volumes:
       - datanode:/hadoop/dfs/data
     env_file:
@@ -42,10 +42,6 @@ services:
       - "9083:9083"
   hive-metastore-postgresql:
     image: bde2020/hive-metastore-postgresql:2.3.0
-  presto-coordinator:
-    image: shawnzhu/prestodb:0.181
-    ports:
-      - "8080:8080"
   kafka:
     image: bashj79/kafka-kraft
     environment:

@@ -13,13 +13,13 @@ producer = KafkaProducer(
 topic = 'sensor'
 
 # Function to produce a message to the Kafka topic
-def produce_message(sensor_id, value, timestamp):
+def produce_message(id, value, timestamp):
     data = {
-        'sensor_id': sensor_id,
+        'id': id,
         'value': value,
         'timestamp': timestamp
     }
-    producer.send(topic, key=str(sensor_id), value=data)
+    producer.send(topic, key=str(id), value=data)
 
 # Read data from CSV file and produce messages
 csv_file = 'myFile.csv'
@@ -29,12 +29,12 @@ with open(csv_file, 'r') as file:
     header = next(csv_reader)  # Assuming the first row is a header
 
     for row in csv_reader:
-        # Assuming the CSV file columns are: sensor_id, value, timestamp
-        sensor_id = int(row[0])
+        # Assuming the CSV file columns are: id, value, timestamp
+        id = int(row[0])
         value = float(row[1])
         timestamp = row[2]
 
-        produce_message(sensor_id, value, timestamp)
+        produce_message(id, value, timestamp)
 
 # Close Kafka producer
 producer.close()
