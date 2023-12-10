@@ -49,12 +49,6 @@ public class ConsumerService {
         // Process the request and generate a response
         String silosJson = siloController.getAllSilos().toString();
         
-        //for each number added to this test function, add 1kb of characters, to test data transfer speeds
-        if(messageRepeatForTesting != null)
-	        for(int i = 0;i<messageRepeatForTesting;i++) {
-	        	silosJson+="1";
-        	}
-        
         List<String> responseList = new ArrayList<>();
         responseList.add(requestId);
         responseList.add(silosJson);

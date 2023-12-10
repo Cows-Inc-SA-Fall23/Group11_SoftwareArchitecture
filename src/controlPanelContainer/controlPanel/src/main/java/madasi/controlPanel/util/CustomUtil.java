@@ -1,6 +1,9 @@
 package madasi.controlPanel.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -50,14 +53,18 @@ public class CustomUtil {
 		}
 	}
 
-	public static String sendAndReceiveKafkaMessage(String stringToSend, String requestId, ProducerService prodService)
+	public static String sendAndReceiveKafkaMessage(String stringToSend,String topic, ProducerService prodService)
 			throws InterruptedException, ExecutionException, TimeoutException {
+		String requestId = UUID.randomUUID().toString();//makes a random id for this request	
 		CompletableFuture<String> future = new CompletableFuture<>();
 		// Store the future object in a map or similar structure, keyed by requestId
 		requestMap.put(requestId, future);
 		// Send message to Kafka, including the requestId
-		String requestPayload = stringToSend;
-		prodService.sendMessage("silo_data_request", requestPayload);
+		List<String> arrayToSend = new ArrayList();
+		arrayToSend.add(stringToSend);
+		arrayToSend.add(requestId);
+		String requestPayload = convertObjectToJson(arrayToSend);
+		prodService.sendMessage(topic, requestPayload);
 
 		// Wait for the response
 		return future.get(CustomUtil.DEFAULT_TIMEOUT, TimeUnit.SECONDS); // Timeout after 30 seconds
