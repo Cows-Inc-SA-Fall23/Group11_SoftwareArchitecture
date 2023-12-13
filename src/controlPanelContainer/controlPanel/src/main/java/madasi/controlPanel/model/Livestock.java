@@ -13,9 +13,11 @@ public class Livestock {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	private Integer type;
+	private String type;
 
-	private Integer status;
+	private String status;
+	
+	private String name;
 	
 	private Timestamp date_of_birth;
 	
@@ -27,28 +29,36 @@ public class Livestock {
 		this.id = id;
 	}
 
-	public Integer getType() {
-		return type;
-	}
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public Timestamp getDate_of_birth() {
 		return date_of_birth;
 	}
 
 	public void setDate_of_birth(Timestamp date_of_birth) {
 		this.date_of_birth = date_of_birth;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 

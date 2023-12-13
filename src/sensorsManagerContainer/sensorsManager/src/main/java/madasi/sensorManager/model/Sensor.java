@@ -6,8 +6,6 @@ import java.util.Objects;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -17,24 +15,30 @@ public class Sensor {
 
 	@OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SensorData> sensorData;
+	
+	public Integer getDataEntriesNumber() {
+		if (sensorData != null) {
+			return sensorData.size();
+		}else {
+			return 0;
+		}
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "livestock_id")
-    private Livestock livestock;
+    private Integer livestock;
 	
 	public String getMac() {
 		return mac;
 	}
 
-	public void setMac(String name) {
-		this.mac = name;
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 
-	public Livestock getLivestock() {
+	public Integer getLivestock() {
 		return livestock;
 	}
 
-	public void setLivestock(Livestock livestock) {
+	public void setLivestock(Integer livestock) {
 		this.livestock = livestock;
 	}
 

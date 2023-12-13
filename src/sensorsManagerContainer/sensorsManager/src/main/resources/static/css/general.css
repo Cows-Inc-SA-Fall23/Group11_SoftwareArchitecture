@@ -15,6 +15,20 @@
 	animation: move 12s infinite alternate ease-in-out;
 }
 
+.white-text-table th, .white-text-table td {
+    color: white;
+}
+
+.scrollable-table-container {
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed; /* This can help with consistent column widths */
+}
+
 /*
  * Globals
  Some code based on css from https://getbootstrap.com/docs/4.3/examples/cover/#

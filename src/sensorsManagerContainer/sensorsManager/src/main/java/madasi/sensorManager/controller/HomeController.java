@@ -1,8 +1,13 @@
 package madasi.sensorManager.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +22,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
+import madasi.sensorManager.model.Livestock;
+import madasi.sensorManager.model.Sensor;
 import madasi.sensorManager.model.SensorData;
 import madasi.sensorManager.model.Setting;
 import madasi.sensorManager.service.ProducerService;
@@ -108,6 +120,23 @@ public class HomeController {
 		model.addAttribute("sensorDataList", sensorDataRepository.findAll());
 		return "sensorDataList";
 	}
+
+	@RequestMapping("/sensors")
+	public String sensors(Model model, HttpSession session) throws InterruptedException, ExecutionException, TimeoutException, JsonMappingException, JsonProcessingException {
+		model.addAttribute("sensorList", sensorRepository.findAll());
+		
+		List<Livestock> livestock = new ArrayList<>();
+		
+		String liveStockString = CustomUtil.sendAndReceiveKafkaMessage("", "livestock_data_request", producerService);
+		ObjectMapper objectMapper = new ObjectMapper();
+		livestock = objectMapper.readValue(liveStockString, new TypeReference<List<Livestock>>() {});
+		
+		logger.info(liveStockString);
+		model.addAttribute("livestockList", livestock);
+		
+		
+		return "sensors";
+	}
 	
 	@PostMapping("/sendRandomSensorData")
     public ResponseEntity<?> sendRandomSensorData(@RequestParam("valueName") String valueName,
@@ -128,6 +157,23 @@ public class HomeController {
             // Handle exceptions as needed
             return ResponseEntity.status(500).body("Error sending sensor data");
         }
+    }
+	
+	@PostMapping("/saveSensorLivestockAssignments")
+    public String saveSensorLivestockAssignments(@RequestParam Map<String, String> allParams) throws InterruptedException, ExecutionException, TimeoutException, JsonMappingException, JsonProcessingException {
+        for (Map.Entry<String, String> entry : allParams.entrySet()) {
+            String mac = entry.getKey().replace("livestock_", "");
+            Integer livestockId = Integer.valueOf(entry.getValue());
+
+            Sensor sensor = sensorRepository.findByMac(mac).orElse(null);
+            if (sensor != null) {
+            	
+        		sensor.setLivestock(livestockId);
+                sensorRepository.save(sensor);
+                
+            }
+        }
+        return "redirect:/sensors"; // Redirect back to the sensors page
     }
 
 	

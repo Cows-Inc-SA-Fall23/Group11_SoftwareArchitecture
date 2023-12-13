@@ -1,18 +1,27 @@
 package madasi.controlPanel.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import madasi.controlPanel.model.Livestock;
 import madasi.controlPanel.util.CustomUtil;
 
 @Service
 public class ConsumerService {
+	
+	@Autowired
+	LivestockRepository livestockRepository;
+	
+	@Autowired
+	ProducerService producerService;
 
     @SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
@@ -43,6 +52,18 @@ public class ConsumerService {
             future.complete(responseData);
             CustomUtil.removeFromRequestMap(requestId);
         }
+    }
+    
+    @KafkaListener(topics = "livestock_data_request")
+    public void onLivestockDataRequest(String message) {
+    	List<String> responseList = (List<String>) CustomUtil.convertJsonToObject(message, List.class);
+    	List<Livestock> allLivestock = new ArrayList<>();
+    	livestockRepository.findAll().forEach(allLivestock::add);
+    	String responseData = CustomUtil.convertObjectToJson(allLivestock);
+    	responseList.set(0, responseData);
+    	
+    	
+    	producerService.sendMessage("livestock_data_response", CustomUtil.convertObjectToJson(responseList));
     }
 
     public CountDownLatch getLatch() {

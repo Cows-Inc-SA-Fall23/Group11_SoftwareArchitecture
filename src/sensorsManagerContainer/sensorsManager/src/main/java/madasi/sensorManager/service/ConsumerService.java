@@ -10,9 +10,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import madasi.sensorManager.util.CustomUtil;
-import madasi.sensorManager.model.Sensor;
-import madasi.sensorManager.model.Livestock;
-import madasi.sensorManager.model.SensorData;
 
 @Service
 public class ConsumerService {
@@ -48,5 +45,21 @@ public class ConsumerService {
     public void resetLatch(int count) {
         latch = new CountDownLatch(count);
         payload = null;
+    }
+    
+    @KafkaListener(topics = "livestock_data_response")	//could use a generic topic for all responses, since they've got their own ids anyways
+    public void onLivestockDataReceived(String message) {
+        // Extract the requestId and response from the message
+        // For simplicity, let's assume the message is in the format "requestId:responseData"
+    	@SuppressWarnings("unchecked")
+    	List<String> list = (List<String>) CustomUtil.convertJsonToObject(message, List.class);
+    	String requestId = list.get(1);
+        String responseData = list.get(0);
+
+        CompletableFuture<String> future = CustomUtil.getFromRequestMap(requestId);
+        if (future != null) {
+            future.complete(responseData);
+            CustomUtil.removeFromRequestMap(requestId);
+        }
     }
 }
