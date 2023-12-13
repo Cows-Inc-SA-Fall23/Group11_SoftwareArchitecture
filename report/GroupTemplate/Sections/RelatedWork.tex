@@ -1,0 +1,44 @@
+\section{Related work}
+\label{sec:related_work}
+This section addresses existing knowledge and contributions by examining Industry 4.0 and its current use within the livestock and agricultural domain. In total, eight papers are investigated using a systematic literature review. \vspace{2mm}
+\newline
+Over the past years, large parts of the industry have been undergoing the revolution to Industry 4.0, integrating higher levels of technology into the lifecycle of products. Order systems, production environments and shipment as well as maintenance of products became more automated and integrated different, interconnected smart systems.
+However, the primary sector, mainly the agricultural part of industry, has not kept up with the rapid changes to modern production standards \cite{pr7010036}.
+This project plan to design an Industry 4.0 architecture for a prototype system for the livestock farming domain. For that, the project begins with evaluating which needs and challenges are already reported on for similar systems in the domain and find existing suggestions for designing such systems.
+In detail, a small but concise systematic literature review is performed considering the following research questions:
+\vspace{2mm}
+\begin{itemize}
+    \item What functional requirements are considered important for agricultural industry 4.0 systems in existing literature?
+    \item Do suggestions for parts of the architecture and technologies of systems exist that support the requirements of agricultural industry 4.0 systems?
+    \item What are current challenges within agricultural industry 4.0 systems in use?
+\end{itemize}
+\vspace{2mm}
+
+To answer these questions, an examination of the scientific reports ragarding Industry 4.0 concepts and software in the livestock farming and agricultural context is conducted. For the process of identifying appropriate research, a semi-automated search strategy as well as snowball techniques after finding promising starting point papers. This search is conducted across a spectrum of academic digital databases, including MPBI, ProQuest, DOAJ, Google Scholar, and ScienceDirect. A set of inclusion criteria was utilized with the purpose of gathering appropriate articles, reviews and case studies published in English within a timeline of the last 7 years. This approach is designed to collate a comprehensive and current body of knowledge, providing a solid foundation for the study.
+\vspace{2mm}
+\\
+The keyword search focused on a list of keywords and key phrases related to the research questions. That list included the words Industry 4.0, agriculture, agriculture 4.0, farming, livestock, and any related phrases. Evaluating the search results, the ones which were applicable to the above-mentioned criteria and related to the research questions and challenges were chosen (excluding some papers with a focus on machine learning, since they were not related to the architectural parts of software design).
+Additionally, ensuring that the papers present a balanced view by considering various perspectives and supporting their arguments with evidence from diverse sources, such as references and/or observed data was important. It was also checked that the authors have taken care to present the information objectively, avoiding bias in their analysis.
+\vspace{2mm}
+\newline
+To report similar or different aspects covered in the different papers, it was determined three categories covered in most of the papers. These categories are “Functional requirements and quality attributes”, “Architectural aspects” and “Existing challenges/problems”. For each of them, an overview of the most important points made is given below.
+\newline
+\subsection{Functional requirements and quality attributes}
+The most common quality attribute for agriculture 4.0 systems throughout the list of papers is interoperability of different subsystems. All the listed papers either mention this attribute directly or refer to middleware products, which are the heart of interoperability between different subsystems.
+Similarly, flexibility of the system, for example being able to add new subsystems or change parts of the software, is addressed as an important attribute in several papers \cite{KRUIZE201612}, \cite{app122412844}, \cite{jepsen2021analysis}, \cite{10092655}.
+Another common attribute is scalability, which papers \cite{KRUIZE201612}, \cite{agronomy12030750}, \cite{s22124319} directly address. In the context of a farm there is a possibility of it growing over time, it is therefore important that the system capable of scaling and can adapt to larger amounts of data and the added workload.
+A few of the papers \cite{agronomy12030750}, \cite{s22124319} also mentions security as an important attribute of large-scale systems, so that the data and system can't be tampered with.
+While there were little contradicting opinions on attributes, different papers had different focus points. A few attributes worth mentioning include component availability \cite{KRUIZE201612}, reconfigurability \cite{10092655} or accuracy of systems \cite{ZHANG2021127712}.
+\newline
+\subsection{Architectural aspects}
+Several of the papers formulate guidelines or opinions on different architectural aspects of agricultural 4.0 systems. To address the above mentioned interoperability requirement, most papers \cite{KRUIZE201612}, \cite{app122412844}, \cite{agronomy12030750}, \cite{jepsen2021analysis}, \cite{10092655}, \cite{ZHANG2021127712} directly focus on middleware components that are used to orchestrate and abstract between different subsystems. In this context, they also mention well-defined interfaces for the communication between different components.
+Another directly addressed aspect is the virtualization \cite{pr7010036}, \cite{KRUIZE201612} of different components in the actual physical farm, so that they can be included in the software ecosystem.
+While different explicit technologies are addressed by different papers (Docker, Kafka, etc.), a more abstract technological term across different papers is “IoT” \cite{pr7010036}, \cite{agronomy12030750}, \cite{s22124319}, \cite{ZHANG2021127712}. Since many systems in the agricultural context rely on sensor data and physical devices (robots, vehicles), the inclusion of IoT devices is necessary for agriculture 4.0 systems.
+\newline
+\subsection{Existing challenges/problems}
+Several of the papers \cite{pr7010036}, \cite{KRUIZE201612}, \cite{app122412844}, \cite{agronomy12030750}, \cite{s22124319}, \cite{jepsen2021analysis}, \cite{ZHANG2021127712} come to the conclusion that many technologies exist that try to make livestock farming smarter and more efficient, but the problem with the technologies is that often coordination problems occur making the interoperability difficult to achieve. A gap in this is the need for common communication protocols or orchestration middleware that these technologies can share so data can be used for shared interests.
+Additional reported challenges exist within the integration of 4.0 systems to the actual farms, which include high financial costs and missing expertise for technological equipment and systems \cite{app122412844}, \cite{s22124319}, \cite{ZHANG2021127712}. To counteract some of these issues, there could be governmental policies, which are at this point still undeveloped \cite{pr7010036}.
+Another reported issue might be bandwidth problems in rural areas, which would restrict large interconnected systems with many components \cite{pr7010036}, \cite{s22124319}.
+\newline
+
+All contributions provide valuable knowledge about Industry 4.0 and its usage within modern agriculture and livestock farming. However, a notable gap in existing literature is the absence of real-world examples of successful or unsuccessful implementations of livestock farming systems that apply Industry 4.0 principles. Developing practical examples can help provide a clearer understanding of how to solve the challenges of Industry 4.0 within the livestock farming domain.
