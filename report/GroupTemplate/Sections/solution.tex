@@ -8,16 +8,14 @@ This section outlines the proposed technological solution for the medium-sized c
 
 \subsection{\textbf{System Overview}}
 The proposed system integrates biometric and feed monitoring, automated feeding, and resource management, ensuring efficiency and sustainability in farm operations. It is designed to manage around 100 animals, utilizing 200 to 300 sensors for various monitoring purposes such as monitoring the heart rate of cows, temperature or humidity of silos. In order for the system to be successful, continuous interoperability among various departments and their Java-based subsystems need to exist. Therefore, a robust middleware communication system facilitated by a central message bus was chosen to be used as the optimal architecture. \newline
-% \begin{figure*}[!ht]
-%     \centering
-%     \includegraphics[width=\textwidth]{Architecture.png}
-%     \caption{The proposed architecture}
-%     \label{fig:systemArch}
-% \end{figure*}
+\begin{figure*}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Images/architecture.pdf}
+    \caption{The proposed architecture}
+    \label{fig:systemArch}
+\end{figure*}
 
-
-% \ref{fig:systemArch}
-Figure (ref)  depicts the initial architecture that was drafted for the system. A few of these systems are not present in the final system implementation, but there will be enough implementation to show how the system adheres to the required quality attributes which are specified in the quality attribute scenarios from section \ref{sec:qas}.
+Figure \ref{fig:systemArch} depicts the initial architecture that was drafted for the system. A few of these systems are not present in the final system implementation, but there will be enough implementation to show how the system adheres to the required quality attributes which are specified in the quality attribute scenarios from section \ref{sec:qas}.
 \subsection{\textbf{Middleware and Communication}}
 For an Industry 4.0 system the middleware is the center of attention. From related work knowledge was obtained that highlighted the need for interoperability between different systems, this is where the message bus comes into play. \vspace{2mm} \\
 Apache Kafka \cite{Apache2022Connect} has been selected for real-time data handling and as a central component of the message bus due to its distinct advantages in large-scale applications. Kafka offers high throughput and low latency, making it ideal for managing huge streams of sensor data in real-time. Furthermore, Kafka's ecosystem, including Kafka Connect, enables the efficient processing of big data, an essential requirement for the project. \vspace{2mm} \\
