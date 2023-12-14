@@ -50,7 +50,7 @@
 
 %\IEEEoverridecommandlockouts
 %\IEEEpubid{\makebox[\columnwidth]{978-1-6654-8356-8/22/\$31.00 ©2022 IEEE %\hfill} \hspace{\columnsep}\makebox[\columnwidth]{ }}
-                                 %978-1-6654-8356-8/22/$31.00 ©2022 IEEE
+%978-1-6654-8356-8/22/$31.00 ©2022 IEEE
 % copyright notice added:
 %\makeatletter
 %\setlength{\footskip}{20pt} 
@@ -63,7 +63,7 @@
 %  \gdef\mycopyrightnotice{}% just in case
 %}
 
-      
+
 \title{Reflection Report Template\\
 }
 
@@ -113,9 +113,20 @@
 
 \section{Contribution}
 
-  
+
 
 \section{Discussion}
+\subsection{Achieved Design Goals}
+In the proposed Industry 4.0 livestock farming system, the main design goal as stated in the paper is to achieve sufficient interoperability, availability, and deployability of the production software. After thorough review and discussion we concluded that the solution appears to be successful in complying to our quality attributes, supported by the architectural design choices and the use of technologies like Apache Kafka, Java-based subsystems, Docker and Hadoop Distributed File System.
+
+\subsubsection{Interoperability}
+The use of Apache Kafka and Java-based subsystems support well the interoperability requirement. The easy implementation in Java-based subsystems, the Java's ability to avoid dependence of existing operating system or hardware and the ability to connect and communicate with a wide variety of systems makes Java-based subsystems ideal interoperability choice. Moreover, Kafka's high compatibility with various systems and programming languages plays a crucial role in ensuring strong and on-going communication between subsystems.
+
+\subsubsection{Availability}
+The system's inclusion of Kafka’s fault tolerance through data replication and Java's flexible memory management capabilities supports a high sufficiency of availability. This is critical for both sensor data traffic and storage, in which system reliability is crucial.
+
+\subsubsection{Deployability}
+Lack of modification need in Java-based systems and the use of Docker for containerization supports the continuous deployability of the system. Our design succeeds in supporting the requirement of the system to be adaptable to future changes such as increased livestock data without any significant downtime. Furthermore, Docker's ability to provide a consistent environment across different platforms is a vital element in achieving deployability.
 
 
 
