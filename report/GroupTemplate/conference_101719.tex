@@ -175,7 +175,21 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 
 
 \section{Future work}
+A simple setup has been achieved during this paper, but there is room for extended work on the system.
 
+\subsection{Knowledge foundation}
+The knowledge foundation for future work should apply an assumption of a system on an even larger scale, ranging up to thousands of livestock as a requirement.
+The related work could also benefit from looking further into the current technologies that exist for smart farming systems, this could potentially sway the gap into being more about the interoperability.
+\subsection{Use cases and requirements}
+A more detailed description of the system with more use cases and requirements could have been found. The use cases and requirements presented in the paper presents a subset of the whole system, which is also reflected by the design. Further adding more use cases and QASes would bring to light even more requirements that could be seen fit for the described system. We'll talk more about which kind of requirements that could be valuable to add in the next section.
+\subsection{System design}
+The current system adheres to three quality attributes, interoperability, availability and deployability. These are proven to be backed up by the system from the evaluation performed for the system.
+For the system to run in the actual environment of a farm, we need to consider other quality attributes and even extend the ones in use for the system right now. For the system to be able to scale to larger farms we should consider the \textit{modifiability} QA, which also sometimes is referred to as the scalability of the system, which helps defining the ability to add resources to the system \cite{Bass2012Software}. This could either be by adding more servers or just by upgrading the current servers.
+Another factor to consider is the \textit{security} aspect of the system, as the world has seen increasing cyber attacks during recent times \cite{Ford_2023}. Security measures the systems ability to protect data and information from unauthorized acces \cite{Bass2012Software}. The main concern for this system in terms of security is that the data were transfering isn't tampered with, this could potentially lead to unecessary actions, which could harm the livestock.
+As the system would be ablo to grow, so should the \textit{performance} of the system. This includes timing requirements \cite{Bass2012Software} of operations not being too long that would cause the system to fail, and that failure potentially cascade further. Also for future work on the system, the whole system should be implemented for it to showcase the full functionality.
+
+\subsection{Implementation and evaluation}
+Given the things mentioned for future work / improvements the implementation and evaluation should include several of these aspects. This means the ability to include even more quality attributes and QASes, and the system should also be evaluated on them.
 
 \section{Conclusion}
 
