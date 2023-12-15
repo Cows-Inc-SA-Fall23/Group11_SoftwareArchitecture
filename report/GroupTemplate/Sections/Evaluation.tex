@@ -1,0 +1,39 @@
+\section{Evaluation}
+\label{sec:evaluation}
+This section details the evaluation of the proposed design, with a focus on how the system meets specified use cases and adheres to defined Quality Attribute Scenarios (QASes).
+
+The design of the experiment for evaluating the system is introduced in Section \ref{sec:design}. This includes the architectural layout, the components involved, and the interaction flow between different parts of the system.
+
+Section \ref{sec:measurements} outlines the key measurements used in the system for the experiment. These measurements include performance metrics, system response times, and data throughput rates, which are crucial for assessing the system's efficiency and effectiveness in real-world scenarios.
+
+The pilot test, described in Section \ref{sec:pilot_test}, is a preliminary experiment conducted to determine the number of replications needed for the actual evaluation. It helps in identifying potential issues and optimizing the system's performance before the full-scale evaluation.
+
+In Section \ref{sec:analysis}, the analysis of the results obtained from the experiment is presented. This includes a detailed examination of how the system performed against the expected outcomes and the implications of these results on the overall system design and functionality.
+
+\subsection{Design Overview}
+\label{sec:design}
+
+To evaluate wether our architecture can be implemented, we tested the interactions between components of the system one by one using a variety of tools. We tested that basic interactions such as API calls to the java systems work as intended by using ~\ref{fig:insomnia1} the Insomnia application, which is a tool to easily call server api, view the response, and see useful metrics such as time to get a response, the response and cookies.\newline
+
+Integration tests written in java (controlPanel/src/test/java/test/madasi/controlPanel/DddApplicationUnitTests.java and controlPanel/src/test/java/test/madasi/controlPanel/KafkaIntegrationTest.java) were used to test the message bus, and interactions between systems. \newline
+
+Apache ab was used to do concurency tests, in which api specially made for testing was called. Raw data for these tests can be found in the appendix.
+
+
+
+\subsection{Measurement Criteria}
+\label{sec:measurements}
+
+With Insomnia and Apache ab we measured response times when calling certain apis under certain conditions.\\ For the unit and integration tests we measured wether the data gets transfered between systems reliably.
+
+\subsection{Pilot Testing and Replication Computation}
+\label{sec:pilot_test}
+
+Pilot testing in our project was conducted to ensure the robustness and efficacy of the system before full-scale deployment.
+
+\subsection{Analysis of Experimental Results}
+\label{sec:analysis}
+The tests conducted using Insomnia and Apache ab revealed that the message bus is unlikely to be a bottleneck in our system. Instead, inefficiencies in code are more probable causes of performance issues.\newline
+Our integration testing demonstrated the effectiveness of the message bus and provided insights into developing easy and efficient methods for implementing new features.\newline
+Pilot testing allowed us to evaluate parts of the system under controlled conditions, offering a simulation of real-world scenarios to a limited extent. Although the functionality implemented in the system at this stage was minimal, the pilot tests still yielded valuable insights into how different components of the system should interact.\newline
+Crucially, the pilot test played a vital role in mitigating risks and identifying potential issues early in the development process. This approach significantly reduced the likelihood of encountering costly changes during the later stages of development.
