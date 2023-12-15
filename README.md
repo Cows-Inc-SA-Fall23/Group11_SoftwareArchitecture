@@ -24,7 +24,8 @@ continuous integration and continuous deployment (CI/CD).
     system container. This component is responsible for managing the lab system.
   - `sensorsManagerContainer/`: Contains the source code and Dockerfile for the
     sensors manager container. This component is responsible for managing the
-    sensors.
+    sensors. This system has some debug features used to simulate sensor data,
+    and sendint it to hdfs.
   - `docker-compose.yml` and `docker-compose.prod.yml`: These files are used to
     define and run the application as a multi-container Docker application. They
     specify the services, networks, and volumes that make up the application.
