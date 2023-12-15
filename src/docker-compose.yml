@@ -65,7 +65,8 @@ services:
       - ./docker-hive-master/hadoop-hive.env
     command: /opt/hive/bin/hive --service metastore
     environment:
-      SERVICE_PRECONDITION: 'namenode:50070 datanode:50075 hive-metastore-postgresql:5432'
+      SERVICE_PRECONDITION:
+        'namenode:50070 datanode:50075 hive-metastore-postgresql:5432'
     ports:
       - '9083:9083'
   hive-metastore-postgresql:
@@ -85,13 +86,21 @@ services:
     ports:
       - '9092:9092'
   controlpanel:
-    image: controlpanel:latest
+    build:
+      context: ./controlPanelContainer/
+      dockerfile: Dockerfile
   feedtracking:
-    image: feedtracking:latest
+    build:
+      context: ./feedTrackingContainer/
+      dockerfile: Dockerfile
   labsystem:
-    image: labsystem:latest
+    build:
+      context: ./labSystemContainer/
+      dockerfile: Dockerfile
   sensormanager:
-    image: sensormanager:latest
+    build:
+      context: ./sensorManagerContainer/
+      dockerfile: Dockerfile
 
 volumes:
   db_data: {}
@@ -101,55 +110,3 @@ volumes:
 networks:
   controlPanel_network:
     driver: bridge
-
-  # publisher:
-  #   build:
-  #     context: ./publisher
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - mosquitto
-
-  # mosquitto:
-  #   image: eclipse-mosquitto:latest
-  #   ports:
-  #     - "1883:1883"
-  #     - "9001:9001"
-  #   volumes:
-  #     - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-
-  # subscriber:
-  #   build:
-  #     context: ./subscriber
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - postgres
-  #     - mosquitto
-  #   environment:
-  #     DATABASE_URL: postgresql://postgres:password@postgres:5432/mydatabase
-  #     DB_USER: postgres
-  #     DB_HOST: postgres
-  #     DB_NAME: mydatabase
-  #     DB_PASSWORD: password
-  #     DB_PORT: "5432"
-
-  # postgres:
-  #   image: postgres:latest
-  #   environment:
-  #     POSTGRES_DB: mydatabase
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: password
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-
-  # api:
-  #   build:
-  #     context: ./api
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "16443:80"
-  #   environment:
-  #     - ASPNETCORE_URLS=http://+:80
-  #   depends_on:
-  #     - postgres
