@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  kafka:
+    image: bashj79/kafka-kraft
+    ports:
+      - "9092:9092"
+    volumes:
+      - kafka-data:/var/lib/kafka/data  # Assuming this is where Kafka data should be stored.
+
+volumes:
+  kafka-data:

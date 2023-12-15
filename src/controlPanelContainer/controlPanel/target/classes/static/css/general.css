@@ -78,6 +78,7 @@ body {
 
 .nav-link{
 	color: #0d6efd;
+	z-index:999;
 }
 
 .nav-masthead .nav-link:hover, .nav-masthead .nav-link:focus {

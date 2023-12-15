@@ -1,13 +1,11 @@
 package madasi.controlPanel.model;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Setting {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	//can use this to have text in the project change only by modifying the db and not having to publish a new version. Currently only used for project title, but others variables can be added to this object.

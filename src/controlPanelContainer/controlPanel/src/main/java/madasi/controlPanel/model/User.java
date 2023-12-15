@@ -1,5 +1,7 @@
 package madasi.controlPanel.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,8 @@ public class User {
 	private String phoneNo;
 	
 	private String password;
+	
+	private Integer user_level;
 
 	public Integer getId() {
 		return id;
@@ -59,4 +63,32 @@ public class User {
 		this.password = password;
 	}
 
+	public Integer getUser_level() {
+		return user_level;
+	}
+
+	public void setUser_level(Integer user_level) {
+		this.user_level = user_level;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id, name, password, phoneNo, user_level);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(password, other.password) && Objects.equals(phoneNo, other.phoneNo)
+				&& Objects.equals(user_level, other.user_level);
+	}
+
+	
 }

@@ -7,12 +7,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class FaviconConfiguration implements WebMvcConfigurer {
 	
+	
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
-                .addResourceLocations("/ddd/static/");
+                .addResourceLocations("/controlPanel/static/");
     }
-
+	
 //	@Autowired
 //	ApplicationContext applicationContext;
 //

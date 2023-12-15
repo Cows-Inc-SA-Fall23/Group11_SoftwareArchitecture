@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,5 +19,6 @@
 <body>
 	<script src="webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>
 	<script src="webjars/jquery/3.6.3/jquery.min.js"></script>
+	<script>console.log("imports")</script>
 </body>
 </html>
