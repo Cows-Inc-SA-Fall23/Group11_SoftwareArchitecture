@@ -3,6 +3,8 @@ package madasi.sensorManager.model;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class SensorData {
     @Id
@@ -15,6 +17,7 @@ public class SensorData {
 
     private String value;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sensor_mac")
     private Sensor sensor;

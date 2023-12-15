@@ -77,50 +77,38 @@
 	<div id="pageBg"></div>
 	<div id="pageBgEffect"></div>
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#sendDataBtn')
-									.click(
-											function() {
-												$
-														.ajax({
-															url : 'sendRandomSensorData',
-															type : 'POST',
-															data : {
-																valueName : $(
-																		'#valueName')
-																		.val(),
-																value : $(
-																		'#value')
-																		.val(),
-																sensorMac : $(
-																		'#sensorMac')
-																		.val()
-															},
-															success : function(
-																	response) {
-																console
-																		.log('Data sent successfullyy');
-																$('#statusIcon')
-																		.removeClass()
-																		.addClass(
-																				'fas fa-check text-success');
-															},
-															error : function(
-																	error) {
-																console
-																		.error(
-																				'Error sending data',
-																				error);
-																$('#statusIcon')
-																		.removeClass()
-																		.addClass(
-																				'fas fa-times text-danger');
-															}
-														});
-											});
-						});
+		$(document).ready(function() {
+			$('#sendDataBtn').click(
+			function() {
+				$.ajax({
+				url : 'sendRandomSensorData',
+				type : 'POST',
+				data : {
+					valueName : $(
+							'#valueName')
+							.val(),
+					value : $(
+							'#value')
+							.val(),
+					sensorMac : $(
+							'#sensorMac')
+							.val()
+				},
+				success : function(
+						response) {
+					console
+							.log('Data sent successfullyy');
+					$('#statusIcon')
+							.removeClass()
+							.addClass(
+									'fas fa-check text-success');
+				},
+				error : function(error) {console.error('Error sending data',error);
+					$('#statusIcon').removeClass().addClass('fas fa-times text-danger');
+				}
+			});
+		});
+		});
 	</script>
 
 </body>

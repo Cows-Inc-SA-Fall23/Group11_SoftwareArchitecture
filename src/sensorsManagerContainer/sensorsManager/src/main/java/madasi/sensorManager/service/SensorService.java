@@ -1,6 +1,11 @@
 package madasi.sensorManager.service;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +14,16 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import madasi.sensorManager.model.Sensor;
 import madasi.sensorManager.model.SensorData;
 import madasi.sensorManager.util.CustomUtil;
+
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+
 
 @Service
 public class SensorService {
@@ -25,30 +37,73 @@ public class SensorService {
     @Autowired
     private ProducerService producerService;
     
+    @Autowired
+    private HdfsService hdfsService;
+    
     public static final String SENSOR_TOPIC = "sensor_data_transmission";
 
 	Logger logger = LoggerFactory.getLogger(ProducerService.class);
 	
-
-    // constructor with @Autowired dependencies
-
     @Scheduled(fixedRate = 3600000) // 3600000 milliseconds = 1 hour
     public void processAndSendSensorData() {
-        // Get current time
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-
-        // Fetch sensor data from the database
-        List<SensorData> sensorDataList = sensorDataRepository.findByTimestampBefore(currentTime);
-
-        // Serialize and send each sensor data to Kafka. Can send all at once in a big json or each individually ?
-        sensorDataList.forEach(data -> {
-            String message = CustomUtil.convertObjectToJson(data);
-            producerService.sendMessage("sensor_data_hdfs", message);
-        });
-
-        // Delete sent data from the database
-        sensorDataRepository.deleteAll(sensorDataList);
+        sendAndDeleteData();
     }
+
+	/**
+	 * @return
+	 */
+	public void sendAndDeleteData() {
+		// Get current time
+        String sensorDataJson = "";
+        List<SensorData> sdList = new ArrayList<>();
+
+        try {
+        	// Serialize and send each sensor data to Kafka. Can send all at once in a big json or each individually ?
+        	for(SensorData sd : sensorDataRepository.findAll()) {
+        		sd.setSensor_mac_tmp(sd.getSensor().getMac());
+        		sdList.add(sd);
+        	}
+        	sensorDataJson = CustomUtil.convertObjectToJson(sdList);
+        	
+        	saveDataToHdfs(sensorDataJson);
+        	
+        	sensorDataRepository.deleteAll();
+        }catch(Exception e) {
+        	logger.error("sendAndDeleteData", e);
+        }
+	}
+	
+	
+	public void saveDataToHdfs(String jsonData) throws InterruptedException {
+	    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	    String pattern = "yyyy_MM_dd_HH_mm_ss"; // Custom date time format so the file name is valid
+	    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+	    String hdfsPath = "/user/hive/warehouse/sensor/data_" + sdf.format(timestamp) + ".csv"; // Replace with your HDFS path
+	    logger.info("Trying to write to path: {}", hdfsPath);
+
+	    try {
+	        String csvData = convertJsonToCsv(jsonData);
+	        logger.info("Data: {}", csvData);
+	        
+//	        hdfsService.writeCsvToHdfs(hdfsPath, csvData);
+	        hdfsService.writeFileToHDFS(hdfsPath, csvData);
+	        
+	        System.out.println("CSV data successfully written to HDFS");
+	    } catch (IOException e) {
+	        logger.error("saveDataToHdfs error: ", e);
+	    }
+	}
+
+	private String convertJsonToCsv(String jsonData) throws IOException {
+	    ObjectMapper jsonMapper = new ObjectMapper();
+	    CsvMapper csvMapper = new CsvMapper();
+	    CsvSchema schema = csvMapper.schemaFor(SensorData.class).withHeader();
+
+	    List<SensorData> dataList = jsonMapper.readValue(jsonData, new TypeReference<List<SensorData>>() {});
+	    return csvMapper.writer(schema).writeValueAsString(dataList);
+	}
+
 
     @KafkaListener(topics = SENSOR_TOPIC)
     public void onSensorDataReceived(String message) {

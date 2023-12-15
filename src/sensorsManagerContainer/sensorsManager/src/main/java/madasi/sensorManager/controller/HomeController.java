@@ -51,6 +51,9 @@ public class HomeController {
 
 	@Value("${project.name}")
 	public String PROJECT_NAME;
+	
+	@Autowired
+	private SensorService sensorService;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -136,6 +139,16 @@ public class HomeController {
 		
 		
 		return "sensors";
+	}
+	
+	@PostMapping("/sendSensorDataHadoop")
+	public ResponseEntity<?> sendSensorDataHadoop(){
+		try {
+			sensorService.sendAndDeleteData();
+			return ResponseEntity.ok("Sensor data sent successfully");
+		}catch(Exception e) {
+            return ResponseEntity.status(500).body("Error sending sensor data");
+		}
 	}
 	
 	@PostMapping("/sendRandomSensorData")

@@ -40,6 +40,7 @@
 		<div class="container mt-4">
 			<h2>Sensor Data</h2>
 			<div class="scrollable-table-container">
+				<button id="sendSensorDataButton" type="submit" class="btn btn-primary">Send data</button>
 				<table class="table white-text-table">
 					<thead>
 						<tr>
@@ -66,5 +67,22 @@
 
 			<!-- Footer and other content -->
 		</div>
+		
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#sendSensorDataButton').click(
+		function() {
+			$.ajax({
+				url : 'sendSensorDataHadoop',
+				type : 'POST',
+				success : function(response) {
+					console.log('Data sent successfullyy');
+				},
+				error : function(error) {console.error('Error sending data',error);
+				}
+			});
+		});
+	});
+	</script>
 </body>
 </html>
