@@ -13,6 +13,8 @@
 \usepackage{tabularx,ragged2e,booktabs}
 \usepackage{float}
 
+\usepackage{svg}
+
 \usepackage{mdframed}
 \usepackage{hyperref}
 \usepackage{tikz}
@@ -23,7 +25,10 @@
 \usepackage{pifont} % checkmarks
 %\theoremstyle{definition}
 %\newtheorem{definition}{Definition}[section]
-
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
 
 \usepackage{listings}
 \lstset
@@ -39,6 +44,8 @@
 \usepackage{subcaption}
 \usepackage{array, multirow}
 \usepackage{enumitem}
+
+
 
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -72,14 +79,13 @@
 \author{
     \IEEEauthorblockN{
         Stefan-Daniel Horvath\IEEEauthorrefmark{1},
-        Hi IM Micahel\IEEEauthorrefmark{1},
-        Student 3\IEEEauthorrefmark{1},
-        Student 4\IEEEauthorrefmark{1},
-        Student 5\IEEEauthorrefmark{1},
+        Michael H Pedersen\IEEEauthorrefmark{1},
+        Jacob B Florczak\IEEEauthorrefmark{1},
+        Ignatios Mantanis\IEEEauthorrefmark{1},
     }
     \IEEEauthorblockA{
         University of Southern Denmark, SDU Software Engineering, Odense, Denmark \\
-        Email: \IEEEauthorrefmark{1} \textnormal{\{Stefan-Daniel Horvath,student2,student3,student4,student5\}}@student.sdu.dk
+        Email: \IEEEauthorrefmark{1} \textnormal{\{sthor23,micpe18,jaflo18,igman23\}}@student.sdu.dk
     }
 }
 
@@ -128,26 +134,24 @@
 
     % Results 
 
+    The following paper presents the results that were achieved by the group in the course Advanced topics in software architecture at the University of Southern Denmark. The focus of the project was to design a software architecture in the conext of Industry 4.0 and smart farming with a focus on livestock farming. Within the domain of smart farming for livestock there has for many years been a lack of adoption for Industry 4.0 concepts. The goal for the project were then to identify the challenges that are present in the domain and design and develop a prototype that incorporates industry 4.0 concepts and showcases how such a system might look like. Related work showed a common challenge for system to communicate together. The system is evaluated based on different quality attributes and quality attribute scenarios. The results of the evaluation shows that the system is able to adhere to the defined quality attributes and quality attribute scenarios.
 \end{abstract}
 
 \begin{IEEEkeywords}
-    Keyword1, Keyword2, Keyword3, Keyword4, Keyword5
+    Smart farming, Industry 4.0, QA, QAS, interoperability, Availability, Deployability, Software Architecture, Software Design, Software Quality, Software Quality Attributes, Software Quality Attribute Scenarios
 \end{IEEEkeywords}
 
 \input{Sections/Introduction.tex}
 
-\vspace{1cm}
 
 \input{Sections/Problem.tex}
 
-\vspace{1cm}
 
 \input{Sections/RelatedWork.tex}
 
-\vspace{1cm}
 \input{Sections/usecase.tex}
 
-\vspace{1cm}
+
 \input{Sections/solution.tex}
 
 \section{Evaluation}
@@ -173,12 +177,11 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 \subsection{Analysis}
 \label{sec:analysis}
 
-
-\section{Future work}
-
+\input{Sections/futureWork.tex}
 
 \section{Conclusion}
-
+A proposed software architecture has been designed and evaluated according to the developed QASes. The components of the system and how they interact have been described by an architectural overview to unfold the system design. The results given in the evaluation exhibits the systems ability to adhere to defined QASes, which gives the reasoning to conclude the system contains the architectural elements to support the system requirements.
+The system design is reasoned about by the use of literature and also by the requirements stated for the system. The design choices has its tradeoffs, but the paper suggests reasoning for why the different technologies propose the best solution for the design. Some of the tradeoffs taken is the complexity of some systems, but also a small performance hit. As described in future work the need for further requirements is necessary for an actual implementation in a farm.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
