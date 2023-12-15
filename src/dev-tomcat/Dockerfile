@@ -5,7 +5,7 @@ FROM openjdk:17-jdk
 EXPOSE 8080
 
 # Install wget and download Tomcat
-ENV TOMCAT_VERSION 10.1.15
+ENV TOMCAT_VERSION 10.1.17
 RUN microdnf install -y wget && \
     wget https://downloads.apache.org/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tar.gz && \
     tar xzf /tmp/tomcat.tar.gz -C /opt && \
