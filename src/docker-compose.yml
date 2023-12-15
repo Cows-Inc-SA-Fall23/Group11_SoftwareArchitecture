@@ -16,7 +16,7 @@ services:
 
   tomcat:
     build:
-      context: ./controlPanelContainer
+      context: ./dev-tomcat/
       dockerfile: Dockerfile
     depends_on:
       - db
@@ -24,9 +24,71 @@ services:
       - "8080:8080"
     networks:
       - controlPanel_network
+
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    volumes:
+      - namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./docker-hive-master/hadoop-hive.env
+    ports:
+      - "50070:50070"  # Expose the NameNode HTTP port
+      - "8020:8020"  # Expose the NameNode RPC port
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    hostname: datanode
+    volumes:
+      - datanode:/hadoop/dfs/data
+    env_file:
+      - ./docker-hive-master/hadoop-hive.env
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070"
+    ports:
+      - "50075:50075"
+      - "50010:50010"
+      - "9864:9864"
+      - "9866:9866"
+  hive-server:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    env_file:
+      - ./docker-hive-master/hadoop-hive.env
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      SERVICE_PRECONDITION: "hive-metastore:9083"
+    ports:
+      - "10000:10000"
+  hive-metastore:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    env_file:
+      - ./docker-hive-master/hadoop-hive.env
+    command: /opt/hive/bin/hive --service metastore
+    environment:
+      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
+    ports:
+      - "9083:9083"
+  hive-metastore-postgresql:
+    image: bde2020/hive-metastore-postgresql:2.3.0
+  kafka:
+    image: bashj79/kafka-kraft
+    environment:
+      KAFKA_KRAFT_MODE: standalone
+      KAFKA_KRAFT_BROKER_ID: 1
+      KAFKA_KRAFT_LISTENERS: PLAINTEXT://:9092
+      KAFKA_KRAFT_LOG_DIRS: /kafka/data
+      KAFKA_KRAFT_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_KRAFT_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_KRAFT_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_KRAFT_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
+      KAFKA_KRAFT_KAFKA_HEAP_OPTS: "-Xmx512M -Xms512M"
+    ports:
+      - "9092:9092"
       
 volumes:
   db_data: {}
+  namenode:
+  datanode:
 
 networks:
   controlPanel_network:

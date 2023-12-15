@@ -52,6 +52,11 @@
 			<artifactId>jrobin</artifactId>
 			<version>1.5.9</version>
 		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <scope>test</scope>
+		</dependency>
 		<!--Data deserialization-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

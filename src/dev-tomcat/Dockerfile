@@ -1,9 +1,3 @@
-FROM maven:3.8.3-openjdk-17-slim AS build
-WORKDIR /app
-COPY ./controlPanel .
-RUN mvn clean install -Dmaven.test.skip=true
-
-
 # Start with a base image containing Java runtime
 FROM openjdk:17-jdk
 
@@ -23,9 +17,8 @@ RUN microdnf install -y wget && \
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
 
-# Copy the war file to the webapps directory of Tomcat
-COPY --from=build /app/target/*.war $CATALINA_HOME/webapps/
-
+# Copy the war files to the webapps directory of Tomcat
+COPY ./*.war $CATALINA_HOME/webapps/
 
 # Command to run Tomcat
 CMD ["catalina.sh", "run"]
